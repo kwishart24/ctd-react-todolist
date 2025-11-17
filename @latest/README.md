@@ -1,16 +1,22 @@
-# React + Vite
+# My Todo List
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+My Todo List is a web app made with React and Vite for my Code the Dream React Class.
 
-Currently, two official plugins are available:
+## Installation Instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Fork the repo in GitHub and save a copy of the repo to your own account using whatever name you'd like.
 
-## React Compiler
+2. Clone the repo to your local machine by clicking the green "Code" button in your newly forked repo. And clicking copy to copy the URL or SSH link.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+3. Open a command prompt window and navigate to the folder on your local machine where you'd like to clone the repo to.
 
-## Expanding the ESLint configuration
+4. Type into the command line "git clone {insert copied URL or SSH here}". And hit Enter. The repo will be cloned to your local machine. 
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## How to Run the Development Server
+
+1. Once the repo has finished installing, navigate to your new project repo by typing "cd {insert name of your repo}". Hit Enter.
+
+2. In the command prompt, type "npm run dev" to run the development server.
+
+3. Copy the URL where it says "Local" and paste into your web browser. Now your development server is running and you should be able to view your project in your web browser!
