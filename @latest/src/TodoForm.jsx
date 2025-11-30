@@ -1,14 +1,14 @@
 function TodoForm() {
-    return (
-        <div>
-            <form htmlFor = "todoTitle">
-                <label>Todo</label>
-                <input type="text" id="todoTitle"></input>
+  return (
+    <div>
+      <form>
+        <label htmlFor="todoTitle">Todo</label>
+        <input type="text" id="todoTitle"></input>
 
-                <button>Add Todo</button>
-            </form>
-        </div>
-    )
+        <button>Add Todo</button>
+      </form>
+    </div>
+  );
 }
 
-export default TodoForm
+export default TodoForm;
