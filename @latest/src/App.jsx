@@ -10,6 +10,7 @@ function App() {
     const newTodo = {
       id: Date.now(),
       title,
+      isCompleted: false,
     };
     setTodoList([...todoList, newTodo]);
   };
@@ -17,7 +18,7 @@ function App() {
     <div>
       <h1>My Todos</h1>
       <TodoForm onAddTodo={addTodo} />
-      <TodoList todoList={todoList} />
+      <TodoList todoList={todoList} setTodoList={setTodoList}/>
     </div>
   );
 }
