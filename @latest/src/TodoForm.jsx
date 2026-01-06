@@ -1,14 +1,16 @@
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 
 function TodoForm(props) {
   const { onAddTodo } = props;
+   const [workingTodoTitle, setWorkingTodo] = useState('');
   const todoTitleInput = useRef(document.getElementById(''));
 
   const handleAddTodo = (event) => {
     event.preventDefault();
-    const title = event.target.title.value;
-    onAddTodo(title);
-    event.target.title.value = '';
+    // const title = event.target.title.value;
+    onAddTodo(workingTodoTitle);
+    // event.target.title.value = '';
+    setWorkingTodo('');
     todoTitleInput.current.focus();
   };
 
@@ -21,9 +23,12 @@ function TodoForm(props) {
           type="text"
           id="todoTitle"
           name="title"
+          value={workingTodoTitle}
+          onChange={(event) => {setWorkingTodo(event.target.value)}}
         ></input>
-
-        <button>Add Todo</button>
+        <>
+        {workingTodoTitle === '' ? (<button disabled={true} >Add Todo</button>) : (<button disabled={false}>Add Todo</button>)}
+        </>
       </form>
     </div>
   );

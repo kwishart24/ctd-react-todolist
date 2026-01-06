@@ -1,7 +1,14 @@
-function TodoListItem({ todo }) {
+function TodoListItem({ todo, onCompleteTodo }) {
   return (
-  <li>
-    {todo.title}
+    <li>
+      <form>
+        <input
+          type="checkbox"
+          checked={todo.isCompleted}
+          onChange={() => onCompleteTodo(todo.id)}
+        ></input>
+        {todo.title}
+      </form>
     </li>
   );
 }
