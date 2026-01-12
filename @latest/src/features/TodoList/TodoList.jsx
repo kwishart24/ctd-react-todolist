@@ -1,7 +1,7 @@
 import TodoListItem from './TodoListItem.jsx';
 import { useState } from 'react';
 
-function TodoList({ todoList, setTodoList }) {
+function TodoList({ todoList, setTodoList, onUpdateTodo }) {
   // const { todoList } = props;
 
   function completeTodo(id) {
@@ -32,6 +32,7 @@ function TodoList({ todoList, setTodoList }) {
               key={todo.id}
               todo={todo}
               onCompleteTodo={completeTodo}
+              onUpdateTodo={onUpdateTodo}
             />
           ))}
         </ul>
