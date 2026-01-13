@@ -1,9 +1,7 @@
 import TodoListItem from './TodoListItem.jsx';
 import { useState } from 'react';
 
-function TodoList({ todoList, setTodoList, onUpdateTodo }) {
-  // const { todoList } = props;
-
+function TodoList({ todoList, setTodoList, onUpdateTodo, isLoading }) {
   function completeTodo(id) {
     const updatedTodos = todoList.map((todo) => {
       if (todo.id === id) {
@@ -23,7 +21,9 @@ function TodoList({ todoList, setTodoList, onUpdateTodo }) {
 
   return (
     <>
-      {filteredTodoList.length === 0 ? (
+      {isLoading ? (
+        <p>Todo list loading...</p>
+      ) : filteredTodoList.length === 0 ? (
         <p>Add todo above to get started</p>
       ) : (
         <ul>
