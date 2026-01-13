@@ -11,6 +11,8 @@ function App() {
 
   const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
 
+  //const url = `https://api.airtable.com/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
+
   //const token = `Bearer ${import.meta.env.VITE_PAT}`;
   const token = `Bearer ${String(import.meta.env.VITE_PAT).trim()}`;
 
@@ -26,6 +28,8 @@ function App() {
         method: 'GET',
         headers: {
           Authorization: token,
+          'Content-Type': 'application/json',
+          //'Access-Control-Allow-Origin': 'http://localhost:5173/',
         },
       };
 
@@ -105,6 +109,57 @@ function App() {
     }
   };
 
+  const completeTodo = async (id) => {
+    setIsSaving(true);
+
+    const originalTodo = todoList.find((todo) => todo.id === id);
+
+    setTodoList((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, isCompleted: true } : todo
+      )
+    );
+    const payload = {
+      records: [
+        {
+          id,
+          fields: {
+            isCompleted: true,
+          },
+        },
+      ],
+    };
+
+    const options = {
+      method: 'PATCH',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+
+    try {
+      const resp = await fetch(url, options);
+
+      if (!resp.ok) {
+        throw new Error(resp.statusText);
+      }
+    } catch (error) {
+      console.error(error);
+      setErrorMessage(`${error.message}. Reverting todo...`);
+
+      // Revert UI if fail
+      setTodoList((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === originalTodo.id ? originalTodo : todo
+        )
+      );
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   const updateTodo = async (editedTodo) => {
     setIsSaving(true);
 
@@ -155,17 +210,6 @@ function App() {
     } finally {
       setIsSaving(false);
     }
-
-    // const updatedTodos = todoList.map((todo) => {
-    //   if (todo.id === editedTodo.id) {
-    //     return {
-    //       //if it matches - return a new object that destructures the editedTodo
-    //       ...editedTodo,
-    //     };
-    //   }
-    //   return todo;
-    // });
-    // setTodoList(updatedTodos);
   };
 
   return (
@@ -177,6 +221,7 @@ function App() {
         setTodoList={setTodoList}
         onUpdateTodo={updateTodo}
         isLoading={isLoading}
+        onCompleteTodo={completeTodo}
       />
       {errorMessage && (
         <div>

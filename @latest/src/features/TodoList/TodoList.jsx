@@ -1,20 +1,13 @@
 import TodoListItem from './TodoListItem.jsx';
 import { useState } from 'react';
 
-function TodoList({ todoList, setTodoList, onUpdateTodo, isLoading }) {
-  function completeTodo(id) {
-    const updatedTodos = todoList.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          isCompleted: true,
-        };
-      }
-      return todo;
-    });
-    setTodoList(updatedTodos);
-  }
-
+function TodoList({
+  todoList,
+  setTodoList,
+  onUpdateTodo,
+  isLoading,
+  onCompleteTodo,
+}) {
   const filteredTodoList = todoList.filter((todo) => !todo.isCompleted);
 
   //ternary statement todoList.length === 0 ? <p>Add todo above to get started</> : mapped unordered mapped todo list
@@ -31,7 +24,7 @@ function TodoList({ todoList, setTodoList, onUpdateTodo, isLoading }) {
             <TodoListItem
               key={todo.id}
               todo={todo}
-              onCompleteTodo={completeTodo}
+              onCompleteTodo={onCompleteTodo}
               onUpdateTodo={onUpdateTodo}
             />
           ))}
