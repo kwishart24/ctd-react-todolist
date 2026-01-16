@@ -3,26 +3,50 @@ import './App.css';
 import TodoList from './features/TodoList/TodoList.jsx';
 import TodoForm from './features/TodoForm.jsx';
 
+const buildAirtableUrl = ({
+  baseUrl,
+  sortedField,
+  sortDirection,
+  queryString,
+}) => {
+  let sortQuery = `sort[0][field] = ${sortedField}&sort[0][direction]=${sortDirection}`;
+
+  let searchQuery = '';
+
+  if (queryString && queryString.trim()) {
+    searchQuery = `&filterByFormula=SEARCH("${queryString.trim()}", + title)`;
+  }
+
+  return encodeURI(`${baseUrl}?${sortQuery}${searchQuery}`);
+};
+
+const baseUrl = 'https://api.airtable.com/';
+
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const [sortField, setSortField] = useState('createdTime');
+  const [sortDirection, setSortDirection] = useState('desc');
+
+  const [queryString, setQueryString] = useState('');
+
   const [isSaving, setIsSaving] = useState(false);
 
   const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
-
-  //const url = `https://api.airtable.com/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
-
-  //const token = `Bearer ${import.meta.env.VITE_PAT}`;
   const token = `Bearer ${String(import.meta.env.VITE_PAT).trim()}`;
-
-  //console.log(import.meta.env.VITE_PAT);
-  // console.log(import.meta.env.VITE_BASE_ID);
-  // console.log(import.meta.env.VITE_TABLE_NAME);
 
   useEffect(() => {
     const fetchTodos = async () => {
       setIsLoading(true);
+
+      const url = buildAirtableUrl({
+        baseUrl,
+        sortField,
+        sortDirection,
+        queryString,
+      });
 
       const options = {
         method: 'GET',
@@ -59,7 +83,7 @@ function App() {
     };
 
     fetchTodos();
-  }, []);
+  }, [baseUrl, token, sortField, sortDirection, queryString]);
 
   const addTodo = async (title) => {
     setIsSaving(true);
@@ -212,6 +236,8 @@ function App() {
     }
   };
 
+  const magicWords = 'EJ';
+
   return (
     <div>
       <h1>My Todos</h1>
@@ -223,6 +249,7 @@ function App() {
         isLoading={isLoading}
         onCompleteTodo={completeTodo}
       />
+
       {errorMessage && (
         <div>
           <hr />
