@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TextInputWithLabel from '../../shared/TextInputWithLabel';
 
 function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [workingTitle, setWorkingTitle] = useState(todo.title);
+
+  useEffect(() => {
+    setWorkingTitle(todo.title);
+  }, [todo]);
 
   const handleCancel = (event) => {
     event.preventDefault();
@@ -24,15 +28,15 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
     //if isEditing is false, return immediately to exit the function
     if (!isEditing) {
       return;
-    } 
-      event.preventDefault();
+    }
+    event.preventDefault();
 
-      onUpdateTodo({
-        ...todo,
-        title: workingTitle,
-      });
+    onUpdateTodo({
+      ...todo,
+      title: workingTitle,
+    });
 
-      setIsEditing(false);
+    setIsEditing(false);
   };
 
   return (
