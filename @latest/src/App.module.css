@@ -1,0 +1,9 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.error-div {
+    border: 2px;
+    border-color: #333;
+}

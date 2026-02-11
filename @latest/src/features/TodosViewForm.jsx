@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { StyledTodosViewForm } from './StyledTodosViewForm';
 
 function TodosViewForm({
   sortDirection,
@@ -26,7 +27,7 @@ function TodosViewForm({
 
   return (
     <>
-      <form onSubmit={preventRefresh}>
+      <StyledTodosViewForm onSubmit={preventRefresh}>
         <div>
           <label htmlFor="search">Search Todos</label>
           <input
@@ -74,7 +75,7 @@ function TodosViewForm({
             <option value="asc">Ascending</option>
           </select>
         </div>
-      </form>
+      </StyledTodosViewForm>
     </>
   );
 }
