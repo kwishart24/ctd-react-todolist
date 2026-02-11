@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import TextInputWithLabel from '../shared/TextInputWithLabel';
+import { StyledTodoForm } from './StyledTodoForm';
 
 function TodoForm({onAddTodo, isSaving}) {
   const [workingTodoTitle, setWorkingTodo] = useState('');
@@ -15,7 +16,7 @@ function TodoForm({onAddTodo, isSaving}) {
   };
 
   return (
-    <div>
+    <StyledTodoForm>
       <form onSubmit={handleAddTodo}>
         <TextInputWithLabel
           ref={todoTitleInput}
@@ -30,7 +31,7 @@ function TodoForm({onAddTodo, isSaving}) {
           {isSaving ? 'Saving...' : 'Add Todo'}
         </button>
       </form>
-    </div>
+    </StyledTodoForm>
   );
 }
 
