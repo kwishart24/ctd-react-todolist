@@ -1,25 +1,17 @@
-import { useReducer } from 'react';
-
 const actions = {
-  //actions in useEffect that loads todos
   fetchTodos: 'fetchTodos',
   loadTodos: 'loadTodos',
-  //found in useEffect and addTodo to handle failed requests
   setLoadError: 'setLoadError',
-  //actions found in addTodo
   startRequest: 'startRequest',
   addTodo: 'addTodo',
   endRequest: 'endRequest',
-  //found in helper functions
   updateTodo: 'updateTodo',
   completeTodo: 'completeTodo',
-  //reverts todos when requests fail
   revertTodo: 'revertTodo',
-  //action on Dismiss Error button
   clearError: 'clearError',
 };
 
-let initialState = {
+const initialState = {
   todoList: [],
   isLoading: false,
   isSaving: false,
@@ -28,46 +20,66 @@ let initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'fetchTodos':
+    case actions.fetchTodos:
       return { ...state, isLoading: true };
-    case 'loadTodos':
-      const todos = action.records.map((record) => {
-        const todo = {
-          id: record.id,
-          title: record.fields.title || '',
-          isCompleted: record.fields.isCompleted || false,
-        };
-        return todo;
-      });
-      return { ...state, todoList: [...list], isLoading: false };
-    case 'setLoadError':
-      return { ...state, errorMessage: action.errorMessage, isLoading: false };
-    case 'startRequest':
-      return { ...state, isSaving: true };
-    case 'addTodo':
-      const savedTodo = {
-        id: records[0].id,
-        ...records[0].fields,
-      };
 
-      if (!records[0].fields.isCompleted) {
-        savedTodo.isCompleted = false;
-      }
+    case actions.loadTodos:
       return {
         ...state,
-        todoList: { ...action.todoList, savedTodo },
+        todoList: action.todos,
+        isLoading: false,
+        errorMessage: '',
+      };
+
+    case actions.setLoadError:
+      return {
+        ...state,
+        errorMessage: action.errorMessage,
+        isLoading: false,
+      };
+
+    case actions.startRequest:
+      return { ...state, isSaving: true };
+
+    case actions.addTodo:
+      return {
+        ...state,
+        todoList: [...state.todoList, action.todo],
         isSaving: false,
       };
-    case 'endRequest':
-      return { ...state, isSaving: false, isLoading: false };
-    case 'updateTodo':
-      return {};
-    case 'completeTodo':
-      return {};
-    case 'revertTodo':
-      return {};
-    case 'clearError':
-      return {};
+
+    case actions.updateTodo:
+      return {
+        ...state,
+        todoList: state.todoList.map((todo) =>
+          todo.id === action.todo.id ? action.todo : todo
+        ),
+      };
+
+    case actions.completeTodo:
+      return {
+        ...state,
+        todoList: state.todoList.map((todo) =>
+          todo.id === action.id ? { ...todo, isCompleted: true } : todo
+        ),
+      };
+
+    case actions.revertTodo:
+      return {
+        ...state,
+        todoList: state.todoList.map((todo) =>
+          todo.id === action.originalTodo.id ? action.originalTodo : todo
+        ),
+      };
+
+    case actions.endRequest:
+      return { ...state, isSaving: false };
+
+    case actions.clearError:
+      return { ...state, errorMessage: '' };
+
+    default:
+      return state;
   }
 }
 
