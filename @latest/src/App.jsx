@@ -9,6 +9,8 @@ import {
   reducer as todosReducer,
   initialState as initialTodosState,
 } from './reducers/todos.reducer.js';
+import TodosPage from './pages/TodosPage.jsx';
+import Header from './shared/Header.jsx';
 
 const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
 
@@ -23,6 +25,8 @@ function App() {
   const [sortField, setSortField] = useState('createdTime');
   const [sortDirection, setSortDirection] = useState('desc');
   const [queryString, setQueryString] = useState('');
+
+  const [title, setTitle] = useState('');
 
   const [todoState, dispatch] = useReducer(todosReducer, initialTodosState);
 
@@ -284,21 +288,31 @@ function App() {
       //setIsSaving(false);
       dispatch({ type: todoActions.endRequest });
     }
+
+    const updateTitle = (url) => {
+      switch (url.splice(0)) {
+        case "/":
+         return setTitle('Home');
+          
+        case "/about":
+          return setTitle('About');
+
+        default: 
+         return setTitle('Not Found');
+      }
+    }
+
   };
 
   return (
     <div>
-      <h1>My Todos</h1>
-      <TodoForm onAddTodo={addTodo} isSaving={isSaving} />
-      <TodoList
+      <Header/>
+      <TodosPage
+        addTodo={addTodo}
+        todoState={todoState}
         todoList={todoList}
-        //setTodoList={setTodoList}
-        onUpdateTodo={updateTodo}
-        isLoading={isLoading}
-        onCompleteTodo={completeTodo}
-      />
-      <hr />
-      <TodosViewForm
+        updateTodo={updateTodo}
+        completeTodo={completeTodo}
         sortDirection={sortDirection}
         setSortDirection={setSortDirection}
         sortField={sortField}
@@ -306,6 +320,8 @@ function App() {
         queryString={queryString}
         setQueryString={setQueryString}
       />
+
+      <hr />
       {errorMessage && (
         <div className={styles.errorDiv}>
           <hr />
