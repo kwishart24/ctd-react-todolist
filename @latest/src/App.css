@@ -1,20 +1,24 @@
-h1, button, form, #sort, #direction, input {
-  font-family:'Courier New', Courier, monospace;
+h1,
+button,
+form,
+#sort,
+#direction,
+input {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
-
 #root {
-    background-color: #F4CBC6;
-    padding: 4em;
+  background-color: #dbbdbe;
+  padding: 4em;
 }
 
 button {
-    background-color: #F7EDF0;
-    padding: 0.5em 1em;
-    border-radius: 20px;
-    margin: 1em;
+  background-color: #b58db6;
+  padding: 0.5em 1em;
+  border-radius: 20px;
+  margin: 1em;
 }
