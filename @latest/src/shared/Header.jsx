@@ -3,9 +3,9 @@ import styles from './Header.module.css';
 
 function Header({ title }) {
   return (
-    <header>
+    <header className={styles.header}>
       <h1>{title}</h1>
-      <nav>
+      <nav className={styles.navigation}>
         <NavLink
           to="/"
           className={({ isActive }) => {
@@ -16,7 +16,7 @@ function Header({ title }) {
             }
           }}
         >
-          Home
+          Todo List
         </NavLink>
         <NavLink
           to="/about"

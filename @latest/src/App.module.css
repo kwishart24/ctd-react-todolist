@@ -1,8 +1,3 @@
-body {
-  display: flex;
-  justify-content: center;
-}
-
 .errorDiv {
   border: 2px;
   border-color: #333;
