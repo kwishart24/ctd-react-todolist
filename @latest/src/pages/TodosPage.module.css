@@ -1,0 +1,12 @@
+.todosContainer {
+  width: fit-content;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}

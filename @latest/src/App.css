@@ -1,20 +1,47 @@
-h1, button, form, #sort, #direction, input {
-  font-family:'Courier New', Courier, monospace;
+h1,
+h2,
+h4,
+h5,
+button,
+form,
+#sort,
+#direction,
+input {
+  font-family: 'Courier New', Courier, monospace;
 }
 
-h1 {
-    text-align: center;
+h1,
+h2,
+h4,
+h5 {
+  text-align: center;
 }
 
+p {
+  /* font-family:'Times New Roman', Times, serif;  */
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 25px;
+  font-size: 0.9em;
+}
+
+body {
+  margin: 0 auto;
+  background-color: #cca3a4;
+}
 
 #root {
-    background-color: #F4CBC6;
-    padding: 4em;
+  margin: 1rem 10rem;
+  background-color: #cca3a4;
+  padding: 2em 0;
 }
 
 button {
-    background-color: #F7EDF0;
-    padding: 0.5em 1em;
-    border-radius: 20px;
-    margin: 1em;
+  background-color: #ad6a6c;
+  padding: 0.5em 1em;
+  border-radius: 20px;
+  margin: 1em;
+}
+
+hr {
+  color: #AD6A6C;
 }

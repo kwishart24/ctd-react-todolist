@@ -1,0 +1,13 @@
+.about {
+  padding: 0 2rem;
+  margin: 0rem auto 3rem;
+}
+
+.about h4 {
+     color: #5D2E46;
+}
+
+.about p {
+  margin: 1rem 0;
+  line-height: 1.6;
+}
